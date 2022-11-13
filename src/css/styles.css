@@ -17,6 +17,8 @@ body {
 :root {
     --items: 4;
     --gap: 20px;
+
+    --animation: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 img {
@@ -57,10 +59,12 @@ a {
 
     background-position: 50%;
     background-color: #dddddd;
-    background-image: url('../images/load.svg');
+    background-image: url('../images/search.svg');
     background-repeat: no-repeat;
 
     cursor: pointer;
+
+    transition: background-color var(--animation);
 }
 
 .search-form__btn:hover{
@@ -71,7 +75,6 @@ a {
     display: flex;
     flex-wrap: wrap;
     gap: var(--gap);
-    /* padding-top: 80px; */
 }
 
 .photo-card__link {
@@ -79,6 +82,7 @@ a {
     flex-basis: calc((100% - var(--gap) * (var(--items) - 1)) / var(--items));
     justify-content: center;
     text-decoration: none;
+    color: inherit;
 }
 
 .photo-card__container {
@@ -130,11 +134,19 @@ a {
 
     background-color: #144deb;
     color: #ffffff;
-    cursor: pointer
+    
+    cursor: pointer;
+
+    transition: background-color var(--animation);
 }
 
 .load-more:hover{
     background-color: #6a8dee;
+}
+
+.load-more:disabled{
+    background-color: #9facd1;
+    pointer-events: none;
 }
 
 .is-hidden {

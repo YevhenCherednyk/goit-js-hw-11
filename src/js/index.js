@@ -21,13 +21,16 @@ function onSearchBtnClick(evt) {
   photoApiService.resetPage();
 
   if (!photoApiService.query) {
-    clearInput();
+    clearMarup();
     return;
   }
 
   photoApiService
     .fetchImg()
-    .then(appendCardMarkup)
+    .then(hits => {
+      clearMarup();
+      appendCardMarkup(hits);
+    })
     .catch(error => console.log(error));
 }
 
@@ -42,6 +45,6 @@ function appendCardMarkup(hits) {
   refs.galleryRef.insertAdjacentHTML('beforeend', createCardMarkup(hits));
 }
 
-function clearInput() {
+function clearMarup() {
   refs.galleryRef.innerHTML = '';
 }

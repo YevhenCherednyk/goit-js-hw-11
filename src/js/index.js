@@ -46,6 +46,8 @@ function onSearchBtnClick(evt) {
     .fetchImg()
     .then(({ totalHits, hits }) => {
       clearMarup();
+      const totalPages = Math.ceil(totalHits / hits.length);
+      const currentPage = photoApiService.page - 1;
 
       if (hits.length === 0) {
         loadMoreBtn.hide();
@@ -54,7 +56,15 @@ function onSearchBtnClick(evt) {
         );
       } else {
         Notiflix.Notify.info(`Hooray! We found ${totalHits} images.`);
+
+        if (totalPages <= currentPage) {
+          Notiflix.Notify.info(
+            "We're sorry, but you've reached the end of search results."
+          );
+          loadMoreBtn.hide();
+        }
       }
+
       appendCardMarkup(hits);
       loadMoreBtn.enable();
     })
